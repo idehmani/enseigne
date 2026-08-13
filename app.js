@@ -274,56 +274,28 @@ function exportToPDF() {
     const dateDemande = dateDemandeInput ? dateDemandeInput.value : 'Demande';
     const codeRma = codeRmaInput ? codeRmaInput.value : 'RMA';
 
-    // Masquer le clavier virtuel s'il est ouvert
-    const keyboardEl = document.getElementById('arabic-virtual-keyboard');
-    if (keyboardEl) keyboardEl.classList.remove('active');
-
-    // Sauvegarde des styles originaux
+    // Masquer temporairement l'ombre pour un rendu net
     const originalShadow = element.style.boxShadow;
     const originalBorder = element.style.border;
-    const originalTransform = element.style.transform;
-    const originalTransformOrigin = element.style.transformOrigin;
-
-    // Préparation visuelle pour la capture
     element.style.boxShadow = 'none';
     element.style.border = 'none';
 
-    // Forcer la synchronisation des inputs pour html2canvas
-    const inputs = element.querySelectorAll('input[type="text"], input[type="tel"], input[type="date"]');
-    inputs.forEach(input => input.setAttribute('value', input.value));
-
-    // Configuration html2pdf ajustée pour 1 seule page A4
     const opt = {
-        margin:       [5, 5, 5, 5], // Marges réduites (5mm)
+        margin:       [8, 8, 8, 8], // mm
         filename:     `Signaletiques_RMA_${codeRma}_${dateDemande}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { 
-            scale: 2, 
-            useCORS: true, 
-            logging: false,
-            scrollY: 0,
-            scrollX: 0
-        },
-        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' },
-        pagebreak:    { mode: 'avoid-all' } // Évite la création de pages supplémentaires
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
     html2pdf().set(opt).from(element).save().then(() => {
-        // Restauration du DOM
         element.style.boxShadow = originalShadow;
         element.style.border = originalBorder;
-        element.style.transform = originalTransform;
-        element.style.transformOrigin = originalTransformOrigin;
     }).catch(err => {
         console.error("Erreur génération PDF:", err);
         element.style.boxShadow = originalShadow;
         element.style.border = originalBorder;
-        element.style.transform = originalTransform;
-        element.style.transformOrigin = originalTransformOrigin;
     });
-}
-
-
 }
 
 
