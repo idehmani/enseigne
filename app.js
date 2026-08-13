@@ -281,7 +281,7 @@ function resetForm() {
 }
 
 function exportToPDF() {
-    const element = document.querySelector('page-wrapper');
+    const element = document.querySelector('.page-wrapper');
     const dateDemandeInput = document.getElementById('date_demande');
     const codeRmaInput = document.getElementById('code_rma');
 
@@ -295,10 +295,10 @@ function exportToPDF() {
     element.style.border = 'none';
 
     const opt = {
-        margin:       [8, 8, 8, 8], // mm
+        margin:       [0, 0, 0, 0], // mm
         filename:     `Signaletiques_RMA_${codeRma}_${dateDemande}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 2, useCORS: true, logging: false },
+        html2canvas:  { scale: 1, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
