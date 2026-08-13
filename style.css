@@ -95,12 +95,10 @@ body {
     max-width: 900px;
     margin: 0 auto;
     background: #ffffff;
-    padding: 25px 30px;
+    padding: 10px 10px;
     border-radius: 4px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    border: 1px solid #d1d5db;
-	page-break-inside: avoid !important;
-    break-inside: avoid !important;
+    
 }
 
 .form-container {
@@ -513,6 +511,7 @@ tr {
         max-width: 100% !important;
         width: 100% !important;
         margin: 0 !important;
+		height:100%;
     }
 
     input[type="text"],
