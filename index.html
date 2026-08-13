@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande des Signalétiques - RMA</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- html2pdf.js for generating perfect PDF matching live form -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- Floating Action Toolbar -->
+    <div class="no-print action-bar">
+        <div class="action-bar-inner">
+            <span class="bar-title">📋 Formulaire Saisie Signalétiques RMA (Live Preview)</span>
+            <div class="button-group">
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Réinitialiser
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="window.print()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    Imprimer
+                </button>
+                <button type="button" class="btn btn-primary" onclick="exportToPDF()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Télécharger PDF
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Container / Printable A4 Page -->
+    <div class="page-wrapper">
+        <form id="signaletique-form" class="form-container">
+            
+            <!-- HEADER SECTION -->
+            <header class="form-header">
+                <div class="header-title-box">
+                    <h1>Demande des Signalétiques</h1>
+                </div>
+                <div class="logo-box">
+                    <div class="rma-logo">
+					<img alt="logo rma" style="color:transparent" src="branding.svg">
+                    </div>
+                </div>
+            </header>
+
+            <!-- DATES GRID -->
+            <div class="dates-section">
+                <div class="date-field">
+                    <label for="date_demande">Date de la demande :</label>
+                    <input type="date" id="date_demande" name="date_demande">
+                </div>
+                <div class="date-field">
+                    <label for="date_val_fm">Date Validation Facility Management :</label>                   
+                </div>
+                <div class="date-field">
+                    <label for="date_inst_prev">Date d'installation prévisionnelle :</label>                   
+                </div>
+                <div class="date-field">
+                    <label for="date_inst">Date d'installation :</label>                                    
+				</div>
+            </div>
+
+            <!-- NOTICE BOX -->
+            <div class="notice-box">
+                Conformément à la procédure Réf. <strong>PRO-FM-004</strong>, le délai de traitement est de deux (2) semaines à compter de la validation du Facility Management ou de l'approbation de la dérogation, si applicable.
+            </div>
+
+            <!-- APPLICANT / AGENCY INFORMATION -->
+            <div class="info-section">
+			
+			    <!--
+				
+				
+				-->
+				<div class="radio-row">
+                    <span class="row-label">Type du réseau :</span>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="type_reseau" value="AGENT_GENERAL">
+                        <span class="custom-check"></span>
+                        AGENT GENERAL
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="type_reseau" value="BUREAU_GESTION_DIRECT">
+                        <span class="custom-check"></span>
+                        BUREAU DE GESTION DIRECT
+                    </label>
+                </div>
+				
+				<div class="form-grid-3">
+                    <div class="form-group">
+                        <label for="raison_sociale">Raison sociale : <span class="sub-label"></span></label>
+                        <input type="text" id="raison_sociale" name="raison_sociale">
+                    </div>
+					
+					<div class="form-group">
+                        <label for="raison_sociale">اسم الوكالة <span class="sub-label">(En Arabe)</span></label>
+                        <input type="text" id="raison_sociale" style="text-align: right" name="raison_sociale1">
+                    </div>
+					
+                    <div class="form-group">
+					    <label for="code_rma">Code RMA :</label>
+                        <input type="text" id="code_rma" name="code_rma">
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+					    <label for="adresse_livraison">Adresse de livraison :</label>
+                        <input type="text" id="adresse_livraison" name="adresse_livraison">
+                    </div>
+                    <div class="form-group">
+						<label for="ville">Ville :</label>
+                        <input type="text" id="ville" name="ville" style="text-align: center">
+                    </div>
+                </div>
+				<div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="nom_contact">Nom du contact :</label>
+                        <input type="text" id="nom_contact" name="nom_contact">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone :</label>
+                        <input type="tel" id="telephone" name="telephone" style="text-align: center">
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="code_acaps">Numéro Complet d'agrément (Code ACAPS) :</label>
+                        <input type="text" id="code_acaps" name="code_acaps">
+                    </div>
+                    <div class="form-group">
+                        <label for="date_agrement">Date d'agrément :</label>
+                        <input type="date" id="date_agrement" name="date_agrement" style="text-align: center">
+                    </div>
+                </div>
+                
+            </div>
+			
+            <!-- TABLE DES NATURES D'ARTICLES -->
+            <div class="table-section">
+                <table class="signaletique-table">
+                    <thead>
+                        <tr>
+                            <th class="col-nature">Nature Article</th>
+                            <th class="col-facade">Largeur Enseigne en mètre </small></th>
+                            <th class="col-rokhas">Réf Autorisation Rokhas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_bandeau_1" id="art_bandeau_1">
+                                    <span class="custom-check"></span>
+                                    Enseigne Bandeau Principale <span class="totem-warning">(Maximum 5m)</span>
+                                </label>
+                            </td>
+                            <td><input type="text" name="facade_bandeau_1" placeholder="m"></td>
+                            <td><input type="text" name="rokhas_bandeau_1" style="text-align: center"></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_bandeau_2" id="art_bandeau_2">
+                                    <span class="custom-check"></span>
+                                    Enseigne Bandeau Secondaire<span class="totem-warning">(Maximum 5m)</span>
+                                </label>
+                            </td>
+                            <td><input type="text" name="facade_bandeau_2" placeholder="m"></td>
+                            <td><input type="text" name="rokhas_bandeau_2" style="text-align: center"></td>
+                        </tr>
+										
+						<tr>
+                            <td colspan="2">
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_totem" id="art_totem">
+                                    <span class="custom-check"></span>
+                                    Totem <span class="totem-warning">&lt;&lt; Autorisation de la commune est obligatoire &gt;&gt;</span>
+                                </label>
+								</td>
+								<td><input type="text" name="rokhas_Totem" style="text-align: center"></td>
+	                     </tr>
+						 
+						<tr>
+                            <td>
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_drapeau" id="art_drapeau">
+                                    <span class="custom-check"></span>
+                                    Enseigne Drapeau <span class="totem-warning">(Maximum 1)</span>
+                                </label>
+                            </td>
+							<td colspan="2">
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_drapeau" id="art_drapeau">
+                                    <span class="custom-check"></span>
+                                    Plaque d'identité
+                                </label>
+                            </td>
+							
+                        </tr>
+						 
+						<tr>
+                            <td>
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_drapeau" id="art_drapeau">
+                                    <span class="custom-check"></span>
+                                    Changement de dénomination
+                                </label>
+                            </td>
+							<td colspan="2">
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_drapeau" id="art_drapeau">
+                                    <span class="custom-check"></span>
+                                    Déplacement des signalétiques
+                                </label>
+                            </td>
+ 						<tr>
+                            <td>
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_drapeau" id="art_drapeau">
+                                    <span class="custom-check"></span>
+                                    Retrait definitif des signalétiques
+                                </label>
+                            </td>
+							<td colspan="2">
+                                <label class="checkbox-table">
+                                    <input type="checkbox" name="art_drapeau" id="art_drapeau">
+                                    <span class="custom-check"></span>
+                                    Démontage Provisoire des signalétiques
+                                </label>
+                            </td>
+                        </tr>
+					</tbody>
+                </table>	
+			</div>
+
+			<div class="signatures-grid">
+				
+                <div class="sig-box">
+                    <div class="sig-header">Entité émettrice</div>
+                    <div class="sig-body">
+                    </div>
+                </div>
+				
+					<div class="sig-box">
+						<div class="sig-header">Directeur Entité émettrice</div>
+						<div class="sig-body">
+						</div>
+					</div>
+					
+					<div class="sig-box">
+						<div class="sig-header">Facility Management</div>
+						<div class="sig-body">
+					</div>
+				</div>
+			</div>
+				<br>
+       
+			<div class="info-section">
+
+				<div class="radio-row">
+			
+				<span class="row-label">Dérogation spéciale d'installation :</span>
+				</div>	
+				<div class="radio-row2">
+					
+					<label class="checkbox-table">
+						<input type="checkbox" name="DRG_Sans" id="art_drapeau">
+						<span class="custom-check"></span>
+						Installation Sans Autorisation
+					</label>
+					<label class="checkbox-table">
+						<input type="checkbox" name="DRG_Ensegne2" id="art_drapeau">
+						<span class="custom-check"></span>
+						Enseigne Secondaire
+					</label>
+					<label class="checkbox-table">
+						<input type="checkbox" name="DRG_Drapeau" id="art_drapeau">
+						<span class="custom-check"></span>
+						Drapeau supplémentaire
+					</label>
+					<label class="checkbox-table">
+						<input type="checkbox" name="DRG_5m" id="art_drapeau">
+						<span class="custom-check"></span>
+						Largeur Enseigne >5m
+					</label>
+					</div>						
+			</div>
+			
+			<div class="derogation-grid">
+					
+					<div class="sig-box">
+						<div class="sig-header">Visa Directeur Générale Délégué</div>
+						<div class="sig-body">
+
+						</div>
+					</div>
+					
+					<div class="sig-box">
+						<div class="sig-header">Visa DGA Capital Humain et Moyens Généraux</div>
+						<div class="sig-body">
+
+						</div>
+					</div>
+		
+			</div>
+
+
+        </form>
+    </div>
+	
+    <script src="app.js"></script>
+</body>
+</html>
