@@ -295,12 +295,14 @@ function exportToPDF() {
     element.style.border = 'none';
 
     const opt = {
-        margin:       [0, 0, 0, 0], // mm
+        margin:       0, // mm
         filename:     `Signaletiques_RMA_${codeRma}_${dateDemande}.pdf`,
-        image:        { type: 'png'},
-        html2canvas:  { scale: 1, useCORS: true, logging: false },
+        image:        { type: 'webp', quality: 1 },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
+
+
 
     html2pdf().set(opt).from(element).save().then(() => {
         element.style.boxShadow = originalShadow;
