@@ -95,10 +95,10 @@ body {
     max-width: 900px;
     margin: 0 auto;
     background: #ffffff;
-    padding: 10px 10px;
+    padding: 30px 30px;
     border-radius: 4px;
     box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    
+    border: 1px solid #d1d5db;
 }
 
 .form-container {
@@ -223,6 +223,7 @@ body {
     outline: none;
 	font-weight: bold;
 	color: #003366;
+	text-align: center;
 }
 
 .info-section input:focus {
@@ -299,7 +300,6 @@ tr {
 	height:30px;
 }
 
-
 .signaletique-table th {
     background-color: #f0f4f8;
     border: 1px solid var(--border-color);
@@ -365,7 +365,7 @@ tr {
 
 .sig-box {
     border: 1px solid var(--border-color);
-    min-height: 120px;
+    min-height: 110px;
     display: flex;
     flex-direction: column;
 }
@@ -488,6 +488,13 @@ tr {
     font-size: 12px;
 }
 
+/* --- STYLE POUR ÉLÉMENTS DÉSACTIVÉS --- */
+input[type="checkbox"]:disabled,
+.checkbox-table:has(input:disabled) {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
 /* --- PRINT MEDIA OPTIMIZATIONS (VECTORIAL PDF EN MODE TEXTE) --- */
 @media print {
     .no-print,
@@ -511,7 +518,7 @@ tr {
         max-width: 100% !important;
         width: 100% !important;
         margin: 0 !important;
-		height:100%;
+		
     }
 
     input[type="text"],
@@ -522,6 +529,7 @@ tr {
         border-radius: 0 !important;
         padding: 1px 0 !important;
         background: transparent !important;
+		text-align: center;
     }
 
     .signaletique-table input[type="text"] {
@@ -530,6 +538,6 @@ tr {
 
     @page {
         size: A4 portrait;
-        margin: 8mm;
+        margin: 0mm;
     }
 }
