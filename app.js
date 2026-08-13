@@ -281,7 +281,7 @@ function resetForm() {
 }
 
 function exportToPDF() {
-    const element = document.querySelector('.page-wrapper');
+    const element = document.querySelector('page-wrapper');
     const dateDemandeInput = document.getElementById('date_demande');
     const codeRmaInput = document.getElementById('code_rma');
 
