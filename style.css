@@ -518,7 +518,6 @@ input[type="checkbox"]:disabled,
         max-width: 100% !important;
         width: 100% !important;
         margin: 0 !important;
-		
     }
 
     input[type="text"],
@@ -538,6 +537,6 @@ input[type="checkbox"]:disabled,
 
     @page {
         size: A4 portrait;
-        margin: 0mm;
+        margin: 8mm;
     }
 }
