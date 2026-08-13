@@ -93,7 +93,7 @@ body {
 /* --- PAGE CONTAINER (A4 FORMAT EXACT) --- */
 .page-wrapper {
     max-width: 900px;
-    margin: 0 auto;
+    margin: 5 auto;
     background: #ffffff;
     padding: 30px 30px;
     border-radius: 4px;
@@ -517,7 +517,7 @@ input[type="checkbox"]:disabled,
         padding: 0 !important;
         max-width: 100% !important;
         width: 100% !important;
-        margin: 0 !important;
+        margin: 5px !important;
     }
 
     input[type="text"],
