@@ -43,6 +43,7 @@ function setupPhoneFormatting() {
  * - facade_bandeau_1 > 5 => active "Largeur Enseigne >5m"
  * - rokhas_bandeau_1 vide => active "DRG_Sans"
  * - art_bandeau_2 coché  => active "DRG_Ensegne2" (Enseigne Secondaire)
+ * - rokhas_Totem vide     => désactive art_totem
  */
 function applyAutomatedRules() {
     // Règle 1: facade_bandeau_1 > 5 => Largeur Enseigne >5m
@@ -78,6 +79,19 @@ function applyAutomatedRules() {
 
     if (artBandeau2Checkbox && drgEnsegne2Checkbox) {
         drgEnsegne2Checkbox.checked = artBandeau2Checkbox.checked;
+    }
+
+    // Règle 4: rokhas_Totem vide => art_totem désactivé et décoché
+    const rokhasTotemInput = document.querySelector('input[name="rokhas_Totem"]');
+    const artTotemCheckbox = document.getElementById('art_totem');
+
+    if (rokhasTotemInput && artTotemCheckbox) {
+        if (rokhasTotemInput.value.trim() === '') {
+            artTotemCheckbox.checked = false;
+            artTotemCheckbox.disabled = true;
+        } else {
+            artTotemCheckbox.disabled = false;
+        }
     }
 }
 
@@ -281,10 +295,10 @@ function exportToPDF() {
     element.style.border = 'none';
 
     const opt = {
-        margin:       [0, 0, 0, 0], // mm
+        margin:       [8, 8, 8, 8], // mm
         filename:     `Signaletiques_RMA_${codeRma}_${dateDemande}.pdf`,
         image:        { type: 'jpeg', quality: 0.98 },
-        html2canvas:  { scale: 0, useCORS: true, logging: false },
+        html2canvas:  { scale: 2, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
 
@@ -297,5 +311,3 @@ function exportToPDF() {
         element.style.border = originalBorder;
     });
 }
-
-
