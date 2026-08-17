@@ -170,7 +170,7 @@ body {
     border: none;
     background: transparent;
     font-size: 12px;
-	text-align: center;
+    text-align: center;
     font-weight: 600;
     outline: none;
     font-family: inherit;
@@ -221,9 +221,9 @@ body {
     font-size: 12px;
     border-radius: 2px;
     outline: none;
-	font-weight: bold;
-	color: #003366;
-	text-align: center;
+    font-weight: bold;
+    color: #003366;
+    text-align: center;
 }
 
 .info-section input:focus {
@@ -253,6 +253,16 @@ body {
     margin-bottom: 6px;
     padding-bottom: 6px;
     border-bottom: 1px dashed #ccc;
+}
+
+/* RADIO / CHECKBOX ROW */
+.radio-row {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 6px;
+    padding-top: 6px;
+    border-top: 1px dashed #ccc;
 }
 
 .radio-row2 {
@@ -297,7 +307,7 @@ body {
 }
 
 tr {
-	height:30px;
+    height: 30px;
 }
 
 .signaletique-table th {
@@ -489,13 +499,18 @@ tr {
 }
 
 /* --- STYLE POUR ÉLÉMENTS DÉSACTIVÉS --- */
-input[type="checkbox"]:disabled,
-.checkbox-table:has(input:disabled) {
+input[type="checkbox"]:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+label:has(input[type="checkbox"]:disabled),
+.checkbox-table:has(input[type="checkbox"]:disabled) {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
-/* --- PRINT MEDIA OPTIMIZATIONS (VECTORIAL PDF EN MODE TEXTE) --- */
+/* --- PRINT MEDIA OPTIMIZATIONS --- */
 @media print {
     .no-print,
     .action-bar,
@@ -528,8 +543,10 @@ input[type="checkbox"]:disabled,
         border-radius: 0 !important;
         padding: 1px 0 !important;
         background: transparent !important;
-		text-align: center;
+        text-align: center;
     }
+	
+
 
     .signaletique-table input[type="text"] {
         border-bottom: none !important;
