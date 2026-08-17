@@ -39,16 +39,13 @@ function setupPhoneFormatting() {
 }
 
 /**
- * 3. Logiques métier automatisées :
- * - facade_bandeau_1 > 5 => active "Largeur Enseigne >5m"
- * - rokhas_bandeau_1 vide => active "DRG_Sans"
- * - art_bandeau_2 coché  => active "DRG_Ensegne2" (Enseigne Secondaire)
- * - rokhas_Totem vide     => désactive art_totem
+ * 3. Logiques métier automatisées
  */
 function applyAutomatedRules() {
-    // Règle 1: facade_bandeau_1 > 5 => Largeur Enseigne >5m
+    // Règle 1: facade_bandeau_1 > 5 => active "Largeur Enseigne >5m"
     const facadeInput = document.querySelector('input[name="facade_bandeau_1"]');
-    const drg5mCheckbox = document.querySelector('.radio-row2 label:nth-child(4) input[type="checkbox"]');
+	const ifacadeInput = document.querySelector('input[name="facade_bandeau_2"]');
+    const drg5mCheckbox = document.querySelector('input[name="DRG_5m"]');
 
     if (facadeInput && drg5mCheckbox) {
         const valStr = facadeInput.value.replace(',', '.').trim();
@@ -58,8 +55,22 @@ function applyAutomatedRules() {
             drg5mCheckbox.checked = true;
         } else if (valStr !== "") {
             drg5mCheckbox.checked = false;
+			art_bandeau_1.checked=true;
         }
+		
+		const ivalStr = ifacadeInput.value.replace(',', '.').trim();
+		const ivalNum = parseFloat(ivalStr);
+		if (!isNaN(ivalNum) && ivalNum > 5) {
+            drg5mCheckbox.checked = true;
+        } else if (ivalStr !== "" && valNum < 5 ) {
+            drg5mCheckbox.checked = false;
+			art_bandeau_2.checked=true;
+        }
+		
+		
     }
+	
+	
 
     // Règle 2: rokhas_bandeau_1 vide => DRG_Sans
     const rokhasInput = document.querySelector('input[name="rokhas_bandeau_1"]');
@@ -91,6 +102,52 @@ function applyAutomatedRules() {
             artTotemCheckbox.disabled = true;
         } else {
             artTotemCheckbox.disabled = false;
+        }
+    }
+
+    // Règle 5: art_bandeau_1 désactivé si facade_bandeau_1 est vide
+    const artBandeau1Checkbox = document.getElementById('art_bandeau_1');
+    if (facadeInput && artBandeau1Checkbox) {
+        if (facadeInput.value.trim() === '') {
+            artBandeau1Checkbox.checked = false;
+            artBandeau1Checkbox.disabled = true;
+        } else {
+            artBandeau1Checkbox.disabled = false;
+        }
+    }
+
+    // Règle 6: art_bandeau_2 désactivé si facade_bandeau_2 est vide
+    const facadeInput2 = document.querySelector('input[name="facade_bandeau_2"]');
+    if (facadeInput2 && artBandeau2Checkbox) {
+        if (facadeInput2.value.trim() === '') {
+            artBandeau2Checkbox.checked = false;
+            artBandeau2Checkbox.disabled = true;
+            if (drgEnsegne2Checkbox) drgEnsegne2Checkbox.checked = false;
+        } else {
+            artBandeau2Checkbox.disabled = false;
+			 artBandeau2Checkbox.checked = true;
+			
+        }
+    }
+
+    // Règle 7: Si art_drapeau2 activé/coché => DRG_Drapeau checked
+    const artDrapeau2Checkbox = document.getElementById('art_drapeau2');
+    const drgDrapeauCheckbox = document.querySelector('input[name="DRG_Drapeau"]');
+
+    if (artDrapeau2Checkbox && drgDrapeauCheckbox) {
+        drgDrapeauCheckbox.checked = artDrapeau2Checkbox.checked;
+    }
+
+    // Règle 8: Si code_acaps est vide => Plaque désactivée
+    const codeAcapsInput = document.getElementById('code_acaps');
+    const plaqueCheckbox = document.getElementById('Plaque');
+
+    if (codeAcapsInput && plaqueCheckbox) {
+        if (codeAcapsInput.value.trim() === '') {
+            plaqueCheckbox.checked = false;
+            plaqueCheckbox.disabled = true;
+        } else {
+            plaqueCheckbox.disabled = false;
         }
     }
 }
@@ -216,14 +273,6 @@ function setupEventListeners() {
     form.addEventListener('change', handleInput);
 }
 
-function onlyOneCheck(checkbox) {
-    const checkboxes = document.getElementsByName('type_reseau');
-    checkboxes.forEach((item) => {
-        if (item !== checkbox) item.checked = false;
-    });
-    saveFormData();
-}
-
 function saveFormData() {
     const form = document.getElementById('signaletique-form');
     if (!form) return;
@@ -288,21 +337,18 @@ function exportToPDF() {
     const dateDemande = dateDemandeInput ? dateDemandeInput.value : 'Demande';
     const codeRma = codeRmaInput ? codeRmaInput.value : 'RMA';
 
-    // Masquer temporairement l'ombre pour un rendu net
     const originalShadow = element.style.boxShadow;
     const originalBorder = element.style.border;
     element.style.boxShadow = 'none';
     element.style.border = 'none';
 
     const opt = {
-        margin:       0, // mm
+        margin:       0,
         filename:     `Signaletiques_RMA_${codeRma}_${dateDemande}.pdf`,
         image:        { type: 'webp', quality: 1 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
     };
-
-
 
     html2pdf().set(opt).from(element).save().then(() => {
         element.style.boxShadow = originalShadow;
