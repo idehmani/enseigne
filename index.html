@@ -13,8 +13,11 @@
     <!-- Floating Action Toolbar -->
     <div class="no-print action-bar">
         <div class="action-bar-inner">
-            <span class="bar-title">📋 Formulaire Saisie Signalétiques RMA (Live Preview)</span>
+            <span class="bar-title">📋 Formulaire Saisie Signalétiques RMA</span>
             <div class="button-group">
+			
+			    <button type="button" class="btn btn-primary" onclick="ShowMobilier()"> Demande Mobilier</button>
+								
                 <button type="button" class="btn btn-secondary" onclick="resetForm()">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
                     Réinitialiser
@@ -30,6 +33,13 @@
             </div>
         </div>
     </div>
+	
+	<div class="Mobilier">
+	
+	
+	</div>
+	
+	
 
     <!-- Main Container / Printable A4 Page -->
     <div class="page-wrapper">
@@ -76,15 +86,18 @@
 				
 				
 				-->
-				<div class="radio-row">
+				
+							
+                <!-- TYPE DU RESEAU -->
+                <div class="radio-row">
                     <span class="row-label">Type du réseau :</span>
                     <label class="checkbox-inline">
-                        <input type="checkbox" name="type_reseau" value="AGENT_GENERAL">
+                        <input type="checkbox" name="type_reseau" value="AGENT_GENERAL" onclick="onlyOneCheck(this)">
                         <span class="custom-check"></span>
                         AGENT GENERAL
                     </label>
                     <label class="checkbox-inline">
-                        <input type="checkbox" name="type_reseau" value="BUREAU_GESTION_DIRECT">
+                        <input type="checkbox" name="type_reseau" value="BUREAU_GESTION_DIRECT" onclick="onlyOneCheck(this)">
                         <span class="custom-check"></span>
                         BUREAU DE GESTION DIRECT
                     </label>
@@ -157,10 +170,10 @@
                                 <label class="checkbox-table">
                                     <input type="checkbox" name="art_bandeau_1" id="art_bandeau_1">
                                     <span class="custom-check"></span>
-                                    Enseigne Bandeau Principale <span class="totem-warning">(Maximum 5m)</span>
+                                    Enseigne Bandeau Principale <span class="totem-warning">(Minimum 3m & Maximum 5m)</span>
                                 </label>
                             </td>
-                            <td><input type="text" name="facade_bandeau_1" placeholder="m"></td>
+                            <td><input type="text" name="facade_bandeau_1"></td>
                             <td><input type="text" name="rokhas_bandeau_1" style="text-align: center"></td>
                         </tr>
                         <tr>
@@ -168,10 +181,10 @@
                                 <label class="checkbox-table">
                                     <input type="checkbox" name="art_bandeau_2" id="art_bandeau_2">
                                     <span class="custom-check"></span>
-                                    Enseigne Bandeau Secondaire<span class="totem-warning">(Maximum 5m)</span>
+                                    Enseigne Bandeau Secondaire<span class="totem-warning">(Minimum 3m & Maximum 5m)</span>
                                 </label>
                             </td>
-                            <td><input type="text" name="facade_bandeau_2" placeholder="m"></td>
+                            <td><input type="text" name="facade_bandeau_2"></td>
                             <td><input type="text" name="rokhas_bandeau_2" style="text-align: center"></td>
                         </tr>
 										
