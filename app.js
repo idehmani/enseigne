@@ -18,7 +18,7 @@ document.addEventListener('DOMContentLoaded', () => {
  * Navigation vers la page Mobilier
  */
 function ShowMobilier() {
-    window.location.href = 'Mobilier.html';
+    window.location.href = 'mobilier.html';
 }
 
 function ShowSignalitique() {
