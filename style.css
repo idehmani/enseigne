@@ -91,15 +91,17 @@ body {
 }
 
 /* --- PAGE CONTAINER (A4 FORMAT EXACT) --- */
-.page-wrapper {
-    max-width: 900px;
-    margin: 0 auto;
-    background: #ffffff;
-    padding: 25px 30px;
-    border-radius: 4px;
-    box-shadow: 0 0 15px rgba(0,0,0,0.1);
-    border: 1px solid #d1d5db;
-}
+.page-wrapper,
+.Mobilier
+	{
+		max-width: 900px;
+		margin: 0 auto;
+		background: #ffffff;
+		padding: 25px 30px;
+		border-radius: 4px;
+		box-shadow: 0 0 15px rgba(0,0,0,0.1);
+		border: 1px solid #d1d5db;
+	}
 
 .form-container {
     width: 100%;
@@ -255,15 +257,6 @@ body {
     border-bottom: 1px dashed #ccc;
 }
 
-/* RADIO / CHECKBOX ROW */
-.radio-row {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-    margin-top: 6px;
-    padding-top: 6px;
-    border-top: 1px dashed #ccc;
-}
 
 .radio-row2 {
     display: flex;
@@ -317,17 +310,41 @@ tr {
     font-size: 11px;
     font-weight: 700;
     text-align: center;
+	font-size: 11px;
+	font-weight: bold;
+	
 }
 
 .signaletique-table td {
     border: 1px solid var(--border-color);
     padding: 5px 8px;
     vertical-align: middle;
+	font-size: 12px;
+	font-weight: bold;
+
 }
 
-.col-nature { width: 50%; }
+.col-nature { width: 50%;}
 .col-facade { width: 25%; text-align: center; }
 .col-rokhas { width: 25%; text-align: center; }
+
+.col-Ref { width: 10%; text-align: center; }
+.col-Des { width: 60%; text-align: center; }
+.col-Min { width: 5%; text-align: center; }
+.col-Max { width: 5%; text-align: center; }
+.col-Qte { width: 5%; text-align: center; }
+.col-Rma { width: 15%; text-align: center; }
+
+.iTR1 {	font-size: 11px;
+		font-weight: bold;
+		text-align: center; 
+}
+
+.iTR2 {	font-size: 11px;
+		font-weight: bold;
+		text-align: left; 
+}
+
 
 .signaletique-table input[type="text"] {
     width: 100%;
@@ -336,6 +353,13 @@ tr {
     font-size: 12px;
     border-radius: 2px;
     text-align: center;
+}
+
+/* Style pour les champs de quantité validés ou ciblés */
+.signaletique-table input[type="text"]:focus {
+    border-color: var(--primary-blue);
+    background-color: #f0f7ff;
+    outline: none;
 }
 
 .checkbox-table {
@@ -526,7 +550,9 @@ label:has(input[type="checkbox"]:disabled),
         print-color-adjust: exact !important;
     }
 
-    .page-wrapper {
+    .page-wrapper,
+	.Mobilier
+	{
         box-shadow: none !important;
         border: none !important;
         padding: 0 !important;
