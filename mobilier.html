@@ -1,0 +1,288 @@
+	<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande des Signalétiques - RMA</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- html2pdf.js for generating perfect PDF matching live form -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+</head>
+<body>
+
+    <!-- Floating Action Toolbar -->
+    <div class="no-print action-bar">
+        <div class="action-bar-inner">
+            <span class="bar-title">Demande Mobilier de bureau</span>
+            <div class="button-group">
+			
+			    <button type="button" class="btn btn-primary" onclick="index.html"> Demande Signalétiques</button>
+								
+                <button type="button" class="btn btn-secondary" onclick="resetForm()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+                    Réinitialiser
+                </button>
+                <button type="button" class="btn btn-secondary" onclick="window.print()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+                    Imprimer
+                </button>
+                <button type="button" class="btn btn-primary" onclick="exportToPDF()">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Télécharger PDF
+                </button>
+            </div>
+        </div>
+    </div>	
+	
+	<div class="Mobilier">
+	<form id="signaletique-form" class="form-container">
+            
+            <!-- HEADER SECTION -->
+            <header class="form-header">
+                <div class="header-title-box">
+                    <h1>Demande Mobilier de bureau</h1>
+                </div>
+                <div class="logo-box">
+                    <div class="rma-logo">
+					<img alt="logo rma" style="color:transparent" src="branding.svg">
+                    </div>
+                </div>
+            </header>
+
+            <!-- DATES GRID -->
+            <div class="dates-section">
+                <div class="date-field">
+                    <label for="date_demande">Date de la demande :</label>
+                    <input type="date" id="date_demande" name="date_demande">
+					
+                </div>
+                <div class="date-field">
+                    <label for="date_val_fm">Date Validation Facility Management :</label>                   
+                </div>
+                <div class="date-field">
+                    <label for="date_inst_prev">Date de livraison prévisionnelle :</label>                   
+                </div>
+                <div class="date-field">
+                    <label for="date_inst">Date livraison :</label>                                    
+				</div>
+            </div>
+
+            <!-- APPLICANT / AGENCY INFORMATION -->
+            <div class="info-section">
+			
+							
+                <!-- TYPE DU RESEAU -->
+                <div class="radio-row">
+                    <span class="row-label">Type du réseau :</span>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="type_reseau" value="AGENT_GENERAL" onclick="onlyOneCheck(this)">
+                        <span class="custom-check"></span>
+                        AGENT GENERAL
+                    </label>
+                    <label class="checkbox-inline">
+                        <input type="checkbox" name="type_reseau" value="BUREAU_GESTION_DIRECT" onclick="onlyOneCheck(this)">
+                        <span class="custom-check"></span>
+                        BUREAU DE GESTION DIRECT
+                    </label>
+                </div>
+				
+				<div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="raison_sociale">Raison sociale : <span class="sub-label"></span></label>
+                        <input type="text" id="raison_sociale" name="raison_sociale">
+                    </div>
+					
+				
+                    <div class="form-group">
+					    <label for="code_rma">Code RMA :</label>
+                        <input type="text" id="code_rma" name="code_rma">
+                    </div>
+                </div>
+
+                <div class="form-grid-2">
+                    <div class="form-group">
+					    <label for="adresse_livraison">Adresse de livraison :</label>
+                        <input type="text" id="adresse_livraison" name="adresse_livraison">
+                    </div>
+                    <div class="form-group">
+						<label for="ville">Ville :</label>
+                        <input type="text" id="ville" name="ville" style="text-align: center">
+                    </div>
+                </div>
+				<div class="form-grid-2">
+                    <div class="form-group">
+                        <label for="nom_contact">Nom du contact :</label>
+                        <input type="text" id="nom_contact" name="nom_contact">
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone :</label>
+                        <input type="tel" id="telephone" name="telephone" style="text-align: center">
+                    </div>
+                </div>
+                
+            </div>
+			
+			<div class="info-section">
+			
+				<div class="radio-row">
+						<span class="row-label">Objet de la demande :</span>
+						</div>
+						<div>
+						<label class="checkbox-inline">
+							<input type="checkbox" name="ObjetDemande" value="ObjetDemande1" onclick="onlyOneCheck1(this)">
+							<span class="custom-check"></span>
+							Nouvelle Ouverture d'agence
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" name="ObjetDemande" value="ObjetDemande2" onclick="onlyOneCheck1(this)">
+							<span class="custom-check"></span>
+							Complement de mobilier
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" name="ObjetDemande" value="ObjetDemande3" onclick="onlyOneCheck1(this)">
+							<span class="custom-check"></span>
+							Remplacement partiel du mobilier
+						</label>
+						<label class="checkbox-inline">
+							<input type="checkbox" name="ObjetDemande" value="ObjetDemande4" onclick="onlyOneCheck1(this)">
+							<span class="custom-check"></span>
+						   Remplacement total du mobilier
+						</label>
+				</div>
+			</div>
+
+		
+            <!-- TABLE DES NATURES D'ARTICLES -->
+            <div class="table-section">
+                <table class="signaletique-table">
+                    <thead>
+                        <tr class="col-Ref"iTR">
+                            <th class="col-Ref">Référence</th>
+                            <th class="col-Des">Désignation Article</th>
+                            <th class="col-Min">Min</th>
+							<th class="col-Max">Max</th>
+                            <th class="col-Qte">Quantité Demandée</th>
+                            <th class="col-Rma">Code RMA</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr class="col-Ref"iTR">
+						<td>F051025</td>
+						<td>Bureau Agent Général</td>
+						<td>1</td>
+						<td>1</td>	
+						<td><input type="text" name="in_Ref1"></td>
+						<td></td>
+						</tr>
+						
+						<tr class="col-Ref"iTR">
+						<td>F115485</td>
+						<td>Fauteuil Agent Général</td>
+						<td>1</td>
+						<td>1</td>	
+						<td><input type="text" name="in_Ref2"></td>
+						<td></td>
+						</tr>
+						
+						<tr class="col-Ref"iTR">
+						<td>F115492</td>
+						<td>Fauteuil visiteur</td>
+						<td>1</td>
+						<td>1</td>	
+						<td><input type="text" name="in_Ref3"></td>
+						<td></td>
+						</tr>
+						
+						<tr class="col-Ref"iTR">
+						<td>F051222</td>
+						<td>Multi class (meuble de rangement)</td>
+						<td>4</td>
+						<td>6</td>	
+						<td><input type="text" name="in_Ref4"></td>
+						<td></td>
+						</tr>						            
+						
+						<tr class="col-Ref"iTR">
+						<td>F115595</td>
+						<td>Bureau Chargé de Clientèle</td>
+						<td>2</td>
+						<td>3</td>	
+						<td><input type="text" name="in_Ref5"></td>
+						<td></td>
+						</tr>	
+						
+						<tr class="col-Ref"iTR">
+						<td>F115610</td>
+						<td>Fauteuil Chargé de Clientèle</td>
+						<td>2</td>
+						<td>3</td>	
+						<td><input type="text" name="in_Ref6"></td>
+						<td></td>
+						</tr>	
+						
+						<tr class="col-Ref"iTR">
+						<td>F886045</td>
+						<td>Attente de 2 places</td>
+						<td>1</td>
+						<td>2</td>	
+						<td><input type="text" name="in_Ref7"></td>
+						<td></td>
+						</tr>
+						
+						<tr class="col-Ref"iTR">
+						<td>PRT.AFCH1</td>
+						<td>Porte affiches 1 affiche</td>
+						<td>4</td>
+						<td>6</td>	
+						<td><input type="text" name="in_Ref8"></td>
+						<td></td>
+						</tr>		
+						
+						<tr class="col-Ref"iTR">
+							<td>PRT.AFCH2</td>
+							<td>Porte affiches 2 affiches sur pied</td>
+							<td>1</td>
+							<td>3</td>	
+							<td><input type="text" name="in_Ref9"></td>
+							<td></td>
+						</tr>
+						
+					</tbody>
+                </table>	
+			</div>
+			
+			            <!-- NOTICE BOX -->
+            <div class="notice-box">
+			(*) Conformément à la procédure Réf PRO-REX-022 Version 05, La demande du mobilier doit être exprimé 4 semaines avant l’ouverture prévue de l’agence. Les quantités maximales et minimales de commande ne concernent que les nouvelles ouvertures.
+            </div>
+			<div class="notice-box">
+			(**) Conformément à la procédure Réf PRO-REX-024 Tâche N°2 les Taux de financement compagnie pour fixés à : 100% Passage de l’étage au RDC, 75% pour les agents en RDC et 50% pour les Agents en étage.
+            </div>
+
+			<div class="signatures-grid">
+				
+                <div class="sig-box">
+                    <div class="sig-header">Entité émettrice</div>
+                    <div class="sig-body">
+                    </div>
+                </div>
+				
+					<div class="sig-box">
+						<div class="sig-header">Directeur Entité émettrice</div>
+						<div class="sig-body">
+						</div>
+					</div>
+					
+					<div class="sig-box">
+						<div class="sig-header">Facility Management</div>
+						<div class="sig-body">
+					</div>
+				</div>
+			</div>
+			
+        </form>
+	</div>
+    <script src="app.js"></script>
+</body>
+</html>	
+	
