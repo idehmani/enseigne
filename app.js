@@ -11,7 +11,63 @@ document.addEventListener('DOMContentLoaded', () => {
     initArabicVirtualKeyboard();
     applyAutomatedRules();
     setupEventListeners();
+    setupMobilierMaxValidation();
 });
+
+/**
+ * Navigation vers la page Mobilier
+ */
+function ShowMobilier() {
+    window.location.href = 'Mobilier.html';
+}
+
+function ShowSignalitique() {
+    window.location.href = 'index.html';
+}
+
+/**
+ * Valide qu'un champ de saisie numérique ne dépasse pas une valeur maximale autorisée
+ * Exemple d'utilisation dans HTML ou JS : maxValue(input, 3)
+ * @param {HTMLInputElement} input - Le champ de saisie HTML
+ * @param {number} max - La valeur maximale autorisée
+ */
+function maxValue(input, max) {
+    if (!input) return;
+
+    // Conserver uniquement les chiffres
+    let value = input.value.replace(/\D/g, '');
+
+    if (value !== '') {
+        let numValue = parseInt(value, 10);
+        if (numValue > max) {
+            numValue = max;
+        }
+        input.value = numValue;
+    } else {
+        input.value = '';
+    }
+}
+
+/**
+ * Attache dynamiquement la validation des valeurs Max pour le tableau du Mobilier
+ */
+function setupMobilierMaxValidation() {
+    const rows = document.querySelectorAll('.signaletique-table tbody tr');
+    rows.forEach(row => {
+        // La 4ème colonne (index 3) contient la valeur Max dans Mobilier.html
+        const maxCell = row.children[3];
+        const qteInput = row.querySelector('input[type="text"]');
+
+        if (maxCell && qteInput) {
+            const maxVal = parseInt(maxCell.textContent.trim(), 10);
+            if (!isNaN(maxVal)) {
+                qteInput.addEventListener('input', (e) => {
+                    maxValue(e.target, maxVal);
+                });
+            }
+        }
+    });
+}
 
 /**
  * 1. Initialise la date de la demande par défaut à la date du jour
@@ -44,7 +100,7 @@ function setupPhoneFormatting() {
 function applyAutomatedRules() {
     // Règle 1: facade_bandeau_1 > 5 => active "Largeur Enseigne >5m"
     const facadeInput = document.querySelector('input[name="facade_bandeau_1"]');
-	const ifacadeInput = document.querySelector('input[name="facade_bandeau_2"]');
+    const ifacadeInput = document.querySelector('input[name="facade_bandeau_2"]');
     const drg5mCheckbox = document.querySelector('input[name="DRG_5m"]');
 
     if (facadeInput && drg5mCheckbox) {
@@ -55,22 +111,20 @@ function applyAutomatedRules() {
             drg5mCheckbox.checked = true;
         } else if (valStr !== "") {
             drg5mCheckbox.checked = false;
-			art_bandeau_1.checked=true;
+            if (typeof art_bandeau_1 !== 'undefined') art_bandeau_1.checked = true;
         }
-		
-		const ivalStr = ifacadeInput.value.replace(',', '.').trim();
-		const ivalNum = parseFloat(ivalStr);
-		if (!isNaN(ivalNum) && ivalNum > 5) {
-            drg5mCheckbox.checked = true;
-        } else if (ivalStr !== "" && valNum < 5 ) {
-            drg5mCheckbox.checked = false;
-			art_bandeau_2.checked=true;
+        
+        if (ifacadeInput) {
+            const ivalStr = ifacadeInput.value.replace(',', '.').trim();
+            const ivalNum = parseFloat(ivalStr);
+            if (!isNaN(ivalNum) && ivalNum > 5) {
+                drg5mCheckbox.checked = true;
+            } else if (ivalStr !== "" && valNum < 5 ) {
+                drg5mCheckbox.checked = false;
+                if (typeof art_bandeau_2 !== 'undefined') art_bandeau_2.checked = true;
+            }
         }
-		
-		
     }
-	
-	
 
     // Règle 2: rokhas_bandeau_1 vide => DRG_Sans
     const rokhasInput = document.querySelector('input[name="rokhas_bandeau_1"]');
@@ -125,8 +179,7 @@ function applyAutomatedRules() {
             if (drgEnsegne2Checkbox) drgEnsegne2Checkbox.checked = false;
         } else {
             artBandeau2Checkbox.disabled = false;
-			 artBandeau2Checkbox.checked = true;
-			
+            artBandeau2Checkbox.checked = true;
         }
     }
 
@@ -329,8 +382,26 @@ function resetForm() {
     }
 }
 
+function onlyOneCheck(checkbox) {
+    const checkboxes = document.getElementsByName('type_reseau');
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false;
+    });
+    saveFormData();
+}
+
+function onlyOneCheck1(checkbox) {
+    const checkboxes = document.getElementsByName('ObjetDemande');
+    checkboxes.forEach((item) => {
+        if (item !== checkbox) item.checked = false;
+    });
+    saveFormData();
+}
+
 function exportToPDF() {
-    const element = document.querySelector('.page-wrapper');
+    const element = document.querySelector('.page-wrapper') || document.querySelector('.Mobilier');
+    if (!element) return;
+    
     const dateDemandeInput = document.getElementById('date_demande');
     const codeRmaInput = document.getElementById('code_rma');
 
@@ -344,7 +415,7 @@ function exportToPDF() {
 
     const opt = {
         margin:       0,
-        filename:     `Signaletiques_RMA_${codeRma}_${dateDemande}.pdf`,
+        filename:     `Demande_RMA_${codeRma}_${dateDemande}.pdf`,
         image:        { type: 'webp', quality: 1 },
         html2canvas:  { scale: 2, useCORS: true, logging: false },
         jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
